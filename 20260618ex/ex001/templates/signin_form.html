@@ -16,6 +16,13 @@
     {% include 'include/nav.html' %}
 
     <article id="signin_wrap">
+
+        {% if result == 'fail' %}
+        <p class="signin_result">
+            아이디 또는 비밀번호가 틀렸습니다.
+        </p>
+        {% endif %}
+
         <div class="signin_form">
             <form action="/member/signin_confirm" method="post" name="signin_form">
                 <input class="input_basic" type="text" name="mId" placeholder="Input member ID">

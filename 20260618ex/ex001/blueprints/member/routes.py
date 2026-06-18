@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, session
 from utils.json_manager import load_members, save_members
 
 member_bp = Blueprint(
@@ -42,7 +42,10 @@ def signup_confirm():
 # signin_form
 @member_bp.route('/signin_form', methods=['GET'])
 def signin_form():
-    return render_template('signin_form.html')
+
+    result = request.args.get('result')
+
+    return render_template('signin_form.html', result = result)
 
 # signin_confirm
 @member_bp.route('/signin_confirm', methods=['POST'])
@@ -52,5 +55,17 @@ def signin_confirm():
 
     members = load_members()
 
-    if members[mId] != None and members[mId]['mPw'] == mPw:
+    if mId in members and members[mId]['mPw'] == mPw:
+        session['signinedMemberId'] = mId
         return render_template('signin_result.html')
+    
+    return redirect('/member/signin_form?result=fail')
+
+# /member/signout_confirm
+@member_bp.route('/signout_confirm', methods=['GET'])
+def signout_confirm():
+
+    # session.clear()
+    session.pop('signinedMemberId', None)
+
+    return redirect('/')

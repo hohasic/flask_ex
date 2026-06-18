@@ -24,4 +24,8 @@
     margin: 50px auto;
     text-align: center;
 }
+
+#signin_wrap p.signin_result {
+    text-align: center;
+}
 /* ARTICLE END */
