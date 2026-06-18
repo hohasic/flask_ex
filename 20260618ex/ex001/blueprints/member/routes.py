@@ -43,3 +43,14 @@ def signup_confirm():
 @member_bp.route('/signin_form', methods=['GET'])
 def signin_form():
     return render_template('signin_form.html')
+
+# signin_confirm
+@member_bp.route('/signin_confirm', methods=['POST'])
+def signin_confirm():
+    mId = request.form['mId']
+    mPw = request.form['mPw']
+
+    members = load_members()
+
+    if members[mId] != None and members[mId]['mPw'] == mPw:
+        return render_template('signin_result.html')
