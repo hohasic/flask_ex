@@ -22,6 +22,11 @@ def signup_confirm():
 
     members = load_members()
 
+    # 아이디 중복 첵!
+    if mId in members:
+        return render_template('signup_result.html', 
+                               result = 'NG')
+
     members[mId] = {
         "mId": mId,
         "mPw": mPw,
@@ -31,8 +36,8 @@ def signup_confirm():
 
     save_members(members)
 
-    return render_template('signup_result.html')
-
+    return render_template('signup_result.html', 
+                           result = 'OK')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

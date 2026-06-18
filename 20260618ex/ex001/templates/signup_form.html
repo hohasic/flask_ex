@@ -11,26 +11,9 @@
 
 </head>
 <body>
-    
-    <header>
-        <h2>MEMBER SERVICE</h2>
-    </header>
 
-    <nav>
-        <div class="nav_wrap">
-            <a href="/">HOME</a>
-            |
-            <a href="/member/signup_form">SIGN-UP</a>
-            |
-            <a href="/member/signin_form">SIGN-IN</a>
-            |
-            <a href="/member/signout_confirm">SIGN-OUT</a>
-            |
-            <a href="/member/modify_form">MODIFY</a>
-            |
-            <a href="/member/delete_confirm">DELETE</a>
-        </div>
-    </nav>
+    {% include 'include/header.html' %}
+    {% include 'include/nav.html' %}
 
     <article id="signup_wrap">
         <div class="signup_form">
@@ -49,9 +32,7 @@
         </div>
     </article>
 
-    <footer>
-        Copyright ©OFFICE Corp. All Rights Reserved.
-    </footer>
+    {% include 'include/footer.html' %}
 
 </body>
 </html>
