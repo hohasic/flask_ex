@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MEMBER SERVICE</title>
+
+    <link href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+
+</head>
+<body>
+    
+    <header>
+        <h2>MEMBER SERVICE</h2>
+    </header>
+
+    <nav>
+        <div class="nav_wrap">
+            <a href="#none">HOME</a>
+            |
+            <a href="#none">SIGN-UP</a>
+            |
+            <a href="#none">SIGN-IN</a>
+            |
+            <a href="#none">SIGN-OUT</a>
+            |
+            <a href="#none">MODIFY</a>
+            |
+            <a href="#none">DELETE</a>
+        </div>
+    </nav>
+
+    <article>
+        <div class="index">
+            <img src="{{ url_for('static', filename='img/computer.jpg') }}">
+        </div>
+    </article>
+
+    <footer>
+        Copyright ©OFFICE Corp. All Rights Reserved.
+    </footer>
+
+</body>
+</html>
