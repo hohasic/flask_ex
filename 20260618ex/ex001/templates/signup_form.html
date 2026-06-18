@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MEMBER SERVICE</title>
+
+    <link href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/member.css') }}" rel="stylesheet">
+
+    <script src="{{ url_for('static', filename='js/member.js') }}"></script>
+
+</head>
+<body>
+    
+    <header>
+        <h2>MEMBER SERVICE</h2>
+    </header>
+
+    <nav>
+        <div class="nav_wrap">
+            <a href="/">HOME</a>
+            |
+            <a href="/member/signup_form">SIGN-UP</a>
+            |
+            <a href="/member/signin_form">SIGN-IN</a>
+            |
+            <a href="/member/signout_confirm">SIGN-OUT</a>
+            |
+            <a href="/member/modify_form">MODIFY</a>
+            |
+            <a href="/member/delete_confirm">DELETE</a>
+        </div>
+    </nav>
+
+    <article id="signup_wrap">
+        <div class="signup_form">
+            <form action="/member/signup_confirm" method="post" name="signup_form">
+                <input class="input_basic" type="text" name="mId" placeholder="Input new member ID">
+                <br>
+                <input class="input_basic" type="password" name="mPw" placeholder="Input new member PW">
+                <br>
+                <input class="input_basic" type="email" name="mMail" placeholder="Input new member MAIL">
+                <br>
+                <input class="input_basic" type="text" name="mPhone" placeholder="Input new member PHONE">
+                <br>
+                <input class="input_button_basic_130" type="button" value="SIGN UP" onclick="signupForm();">
+                <input class="input_button_basic_130" type="reset" value="RESET">
+            </form>
+        </div>
+    </article>
+
+    <footer>
+        Copyright ©OFFICE Corp. All Rights Reserved.
+    </footer>
+
+</body>
+</html>

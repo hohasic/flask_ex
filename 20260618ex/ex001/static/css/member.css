@@ -21,14 +21,11 @@ nav > div.nav_wrap a {
 /* NAV END */
 
 /* ARTICLE START */
-article { 
+/* SIGNUP */
+#signup_wrap .signup_form {
+    width: 1000px;
+    margin: 50px auto;
     text-align: center;
-    margin: 50px 0;
-}
-
-article div.index img {
-    min-width: 1000px;
-    max-width: 1000px;
 }
 /* ARTICLE END */
 
