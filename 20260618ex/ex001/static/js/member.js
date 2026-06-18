@@ -30,3 +30,26 @@ function signupForm() {
     }
 
 }
+
+function signinForm() {
+    console.log('signinForm() CALLED!!');
+
+    let form = document.signin_form;
+
+    let mId = form.mId.value.trim();
+    let mPw = form.mPw.value.trim();
+
+    if (mId === '') {
+        alert('Please input member ID!!');
+        form.mId.focus();
+
+    } else if (mPw === '') {
+        alert('Please input member PW!!');
+        form.mPw.focus();
+
+    } else {
+        form.submit();
+        
+    }
+
+}
