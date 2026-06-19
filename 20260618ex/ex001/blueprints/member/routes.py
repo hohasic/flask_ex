@@ -103,3 +103,16 @@ def modify_confirm():
     save_members(members)
 
     return render_template('modify_result.html')
+
+# /member/delete_confirm
+@member_bp.route('/delete_confirm')
+def delete_confirm():
+    
+    members = load_members()
+    signinedMemberId = session.get('signinedMemberId')
+    del members[signinedMemberId]
+    save_members(members)
+
+    session.clear()
+
+    return render_template('delete_result.html')
