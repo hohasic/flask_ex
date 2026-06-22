@@ -7,14 +7,16 @@ member_bp = Blueprint(
     url_prefix='/member'
 )
 
-# signup_form
-@member_bp.route('/member/signup_form', methods=['GET'])
+# 회원 가입 양식
+@member_bp.route('/signup_form', methods=['GET'])
 def signup_form():
     return render_template('member/signup_form.html')
 
-# signup_confirm
+# 회원 가입 확인
 @member_bp.route('/signup_confirm', methods=['POST'])
 def signup_confirm():
+    print('signup_confirm() CALLED!!')
+
     mId = request.form['mId']
     mPw = request.form['mPw']
     mMail = request.form['mMail']
@@ -22,73 +24,79 @@ def signup_confirm():
 
     members = load_members()
 
-    # 아이디 중복 첵!
     if mId in members:
-        return render_template('member/signup_result.html', 
-                               result = 'NG')
+        return render_template(
+            '/member/signup_result.html', 
+            result = 'NG')
 
     members[mId] = {
         "mId": mId,
         "mPw": mPw,
         "mMail": mMail,
-        "mPhone": mPhone,
+        "mPhone": mPhone
     }
 
     save_members(members)
 
-    return render_template('member/signup_result.html', 
-                           result = 'OK')
+    return render_template(
+        '/member/signup_result.html', 
+        result = 'OK')
 
-# signin_form
+# 회원 로그인 양식
 @member_bp.route('/signin_form', methods=['GET'])
 def signin_form():
 
     result = request.args.get('result')
 
-    return render_template('member/signin_form.html', result = result)
+    return render_template(
+        'member/signin_form.html', 
+        result = result
+        )
 
-# signin_confirm
+# 회원 로그인 확인
 @member_bp.route('/signin_confirm', methods=['POST'])
 def signin_confirm():
+    print('signin_confirm() CALLED!!')
+
     mId = request.form['mId']
     mPw = request.form['mPw']
 
     members = load_members()
 
-    if mId in members and members[mId]['mPw'] == mPw:
+    if members[mId] != None and members[mId]['mPw'] == mPw:
         session['signinedMemberId'] = mId
-        return render_template('member/signin_result.html')
+        return render_template('/member/signin_result.html')
     
-    return redirect('/signin_form?result=fail')
+    return redirect('/member/signin_form?result=fail')
 
-# /member/signout_confirm
+# 회원 로그아웃
 @member_bp.route('/signout_confirm', methods=['GET'])
 def signout_confirm():
+    print('signout_confirm() CALLED!!')
 
-    # session.clear()
-    session.pop('signinedMemberId', None)
+    session.clear()
 
     return redirect('/')
 
-
-# /member/modify_form
-@member_bp.route('/modify_form')
+# 회원 정보 수정 양식
+@member_bp.route('/modify_form', methods=['GET'])
 def modify_form():
+    print('modify_form() CALLED!!')
+
     members = load_members()
-    member = members[session.get('signinedMemberId')]   # 현재 로그인되어 있는 회원정보 수집
+    signinedMemberId = session.get('signinedMemberId')
+    member = members[signinedMemberId]
 
     return render_template(
         'member/modify_form.html',
         member = member
     )
+    
 
-# /member/modify_confirm
+# 회원 정보 수정 확인
 @member_bp.route('/modify_confirm', methods=['POST'])
 def modify_confirm():
-    
-    '''
-    현재 로그인 되어 있는 회원 ID가 'gildong'이다.
-    '''
+    print('modify_confirm() CALLED!!')
 
     mId = request.form['mId']
     mPw = request.form['mPw']
@@ -96,23 +104,28 @@ def modify_confirm():
     mPhone = request.form['mPhone']
 
     members = load_members()
-    member = members[mId]
-    member['mPw'] = mPw
-    member['mMail'] = mMail
-    member['mPhone'] = mPhone
+    members[mId]['mPw'] = mPw
+    members[mId]['mMail'] = mMail
+    members[mId]['mPhone'] = mPhone
+
     save_members(members)
 
-    return render_template('member/modify_result.html')
+    return render_template('/member/modify_result.html')
 
-# /member/delete_confirm
-@member_bp.route('/delete_confirm')
+
+# 회원 탈퇴
+@member_bp.route('/delete_confirm', methods=['GET'])
 def delete_confirm():
-    
+    print('delete_confirm() CALLED!!')
+
     members = load_members()
     signinedMemberId = session.get('signinedMemberId')
     del members[signinedMemberId]
+
     save_members(members)
 
     session.clear()
 
-    return render_template('member/delete_result.html')
+    return render_template('/member/delete_result.html')
+
+
